@@ -1,0 +1,1 @@
+enum AppRouterConfiguration { home }
