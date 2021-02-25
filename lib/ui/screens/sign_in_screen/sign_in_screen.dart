@@ -114,7 +114,7 @@ class SignInScreenState extends State<SignInScreen> {
                             final email = _emailController.text;
                             final password = _passwordController.text;
                             try {
-                              await meController.signInWithEmailAndPassword(
+                              await meController.signIn(
                                   email: email, password: password);
                             } catch (error) {
                               await showDialog<void>(

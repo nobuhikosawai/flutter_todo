@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_example/ui/screens/sign_in_screen/sign_in_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app_router_configuration.dart';
+import 'data/models/me.dart';
 import 'ui/screens/todo_screen/todo_screen.dart';
 
 class AppRouterDelegate extends RouterDelegate<AppRouterConfiguration>
     with
         ChangeNotifier,
         PopNavigatorRouterDelegateMixin<AppRouterConfiguration> {
+  AppRouterDelegate({@required this.me});
+
+  AsyncValue<Me> me;
+
   AppRouterConfiguration _configuration;
 
   AppRouterConfiguration get configuration => _configuration;
@@ -37,7 +44,23 @@ class AppRouterDelegate extends RouterDelegate<AppRouterConfiguration>
   @override
   Widget build(BuildContext context) {
     var _pages = <Page>[];
-    _pages = [MaterialPage<void>(key: ValueKey('home'), child: TodoScreen())];
+    me.when(
+      data: (value) => _pages = (value == null)
+          ? [
+              MaterialPage<void>(
+                  key: ValueKey('sign_in'), child: SignInScreen()),
+            ]
+          : [
+              MaterialPage<void>(key: ValueKey('home'), child: TodoScreen()),
+            ],
+      loading: () => _pages = [
+        MaterialPage<void>(key: ValueKey('splash'), child: Container()),
+      ],
+      error: (error, stack) => _pages = [
+        MaterialPage<void>(key: ValueKey('unknown'), child: Container())
+      ],
+    );
+
     return Navigator(
       key: navigatorKey,
       pages: _pages,
