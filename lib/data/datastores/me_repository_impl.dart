@@ -26,7 +26,7 @@ class MeRepositoryImpl implements MeRepository {
 
     await for (var user in userStream) {
       yield user != null
-          ? Me(id: user.uid, displayName: user.displayName)
+          ? Me(id: user.uid, displayName: user.displayName ?? '')
           : null; // cast type
     }
   }
