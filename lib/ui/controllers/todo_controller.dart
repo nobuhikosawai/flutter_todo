@@ -27,4 +27,9 @@ class TodoController extends StateNotifier<AsyncValue<List<Todo>>> {
       state = AsyncValue.data(todos);
     });
   }
+
+  Future<void> createTodo(String title) async {
+    _repository ??= _reference.read(todoRepositoryProvider);
+    await _repository.createTodo(meId: meId ,title: title);
+  }
 }
