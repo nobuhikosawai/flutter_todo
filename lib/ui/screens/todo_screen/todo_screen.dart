@@ -16,6 +16,7 @@ class TodoScreen extends HookWidget {
     if (meId == null) Container();
 
     final todos = useProvider(todoProvider(meId).state);
+    final todoController = useProvider(todoProvider(meId));
 
     return todos.when(
         data: (todos) {
@@ -49,6 +50,7 @@ class TodoScreen extends HookWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: CustomColor.primary,
               onPressed: () {
+                // ref: https://github.com/flutter/flutter/issues/18564#issuecomment-519429440
                 showModalBottomSheet<void>(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
@@ -57,7 +59,14 @@ class TodoScreen extends HookWidget {
                     ),
                     context: context,
                     builder: (buildContext) {
-                      return TodoInputField();
+                      return SingleChildScrollView(
+                          child: Container(
+                              child: Wrap(
+                        children: [
+                          TodoInputField(
+                              onSaved: (str) => todoController.createTodo(str)),
+                        ],
+                      )));
                     });
               },
               child: Icon(Icons.add),
