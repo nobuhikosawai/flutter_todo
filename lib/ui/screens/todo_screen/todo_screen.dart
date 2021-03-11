@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
 import '../../controllers/todo_controller.dart';
-import 'todo_input_field.dart';
+import 'todo_input_form.dart';
 
 class TodoScreen extends HookWidget {
   @override
@@ -63,7 +63,7 @@ class TodoScreen extends HookWidget {
                           child: Container(
                               child: Wrap(
                         children: [
-                          TodoInputField(
+                          TodoInputForm(
                               onSaved: (str) => todoController.createTodo(str)),
                         ],
                       )));

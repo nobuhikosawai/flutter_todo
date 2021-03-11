@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_example/ui/common/custom_color.dart';
 
-class TodoInputField extends StatefulWidget {
-  TodoInputField({@required this.onSaved});
+class TodoInputForm extends StatefulWidget {
+  TodoInputForm({@required this.onSaved});
 
   final Future<void> Function(String) onSaved;
 
   @override
   State<StatefulWidget> createState() {
-    return TodoInputFieldState(onSaved);
+    return TodoInputFormState(onSaved);
   }
 }
 
-class TodoInputFieldState extends State<TodoInputField> {
-  TodoInputFieldState(this._onSaved);
+class TodoInputFormState extends State<TodoInputForm> {
+  TodoInputFormState(this._onSaved);
 
   final _todoTitleController = TextEditingController();
   String _todoTitleErrorText;
