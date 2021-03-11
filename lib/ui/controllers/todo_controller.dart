@@ -12,7 +12,7 @@ final todoProvider = StateNotifierProvider.family<TodoController, String>(
 class TodoController extends StateNotifier<AsyncValue<List<Todo>>> {
   TodoController(this._reference, {@required this.meId})
       : super(AsyncValue.loading()) {
-    _listTodos(meId);
+    _listTodos();
   }
 
   TodoRepository _repository;
@@ -21,7 +21,7 @@ class TodoController extends StateNotifier<AsyncValue<List<Todo>>> {
 
   final ProviderReference _reference;
 
-  void _listTodos(String meId) {
+  void _listTodos() {
     _repository ??= _reference.read(todoRepositoryProvider);
     _repository.listTodos(meId: meId).listen((todos) {
       state = AsyncValue.data(todos);
