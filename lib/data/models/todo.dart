@@ -9,5 +9,6 @@ abstract class Todo with _$Todo {
     @required String id,
     @required String title,
     @required bool completed,
+    @required double position,
   }) = _Todo;
 }

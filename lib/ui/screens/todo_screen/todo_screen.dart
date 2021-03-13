@@ -37,7 +37,7 @@ class TodoScreen extends HookWidget {
                 // todos.data.value = todosDup;
               },
               children: [
-                for (final todo in todos)
+                for (final todo in todos.items)
                   CheckboxListTile(
                       key: Key(todo.id),
                       controlAffinity: ListTileControlAffinity.leading,

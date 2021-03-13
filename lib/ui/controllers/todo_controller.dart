@@ -3,13 +3,13 @@ import 'package:flutter_example/data/providers/todo_repository_provider.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../data/models/todo.dart';
+import '../../data/models/todos.dart';
 import '../../data/repositories/todo_repository.dart';
 
 final todoProvider = StateNotifierProvider.family<TodoController, String>(
     (ref, meId) => TodoController(ref, meId: meId));
 
-class TodoController extends StateNotifier<AsyncValue<List<Todo>>> {
+class TodoController extends StateNotifier<AsyncValue<Todos>> {
   TodoController(this._reference, {@required this.meId})
       : super(AsyncValue.loading()) {
     _listTodos();
@@ -30,6 +30,7 @@ class TodoController extends StateNotifier<AsyncValue<List<Todo>>> {
 
   Future<void> createTodo(String title) async {
     _repository ??= _reference.read(todoRepositoryProvider);
-    await _repository.createTodo(meId: meId ,title: title);
+    final position = state.data.value.newPosition();
+    await _repository.createTodo(meId: meId, title: title, position: position);
   }
 }

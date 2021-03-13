@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 import '../models/todo.dart';
+import '../models/todos.dart';
 import '../repositories/todo_repository.dart';
 
 class TodoRepositoryImpl extends TodoRepository {
@@ -16,24 +17,33 @@ class TodoRepositoryImpl extends TodoRepository {
   FirebaseFirestore _firestore;
 
   @override
-  Stream<List<Todo>> listTodos({@required String meId}) {
+  Stream<Todos> listTodos({@required String meId}) {
     return _firestore
         .collection('todos')
         .where('auth_id', isEqualTo: meId)
+        .orderBy('position', descending: true)
         .snapshots()
-        .asyncExpand<List<Todo>>((event) async* {
-      yield event.docs.map((d) {
+        .asyncExpand<Todos>((event) async* {
+      final todoList = event.docs.map((d) {
         return Todo(
-            id: d.id,
-            title: d['title'] as String,
-            completed: d['completed'] as bool);
+          id: d.id,
+          title: d['title'] as String,
+          completed: d['completed'] as bool,
+          position: d['position'] as double,
+        );
       }).toList();
+
+      yield Todos(items: todoList);
     });
   }
 
   @override
-  Future<void> createTodo({String meId, String title}) async {
-    await _firestore.collection('todos').add(
-        <String, dynamic>{'auth_id': meId, 'title': title, 'completed': false});
+  Future<void> createTodo({String meId, String title, double position}) async {
+    await _firestore.collection('todos').add(<String, dynamic>{
+      'auth_id': meId,
+      'title': title,
+      'completed': false,
+      'position': position
+    });
   }
 }

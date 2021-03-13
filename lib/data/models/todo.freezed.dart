@@ -15,11 +15,15 @@ class _$TodoTearOff {
 
 // ignore: unused_element
   _Todo call(
-      {@required String id, @required String title, @required bool completed}) {
+      {@required String id,
+      @required String title,
+      @required bool completed,
+      @required double position}) {
     return _Todo(
       id: id,
       title: title,
       completed: completed,
+      position: position,
     );
   }
 }
@@ -33,6 +37,7 @@ mixin _$Todo {
   String get id;
   String get title;
   bool get completed;
+  double get position;
 
   @JsonKey(ignore: true)
   $TodoCopyWith<Todo> get copyWith;
@@ -42,7 +47,7 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res>;
-  $Res call({String id, String title, bool completed});
+  $Res call({String id, String title, bool completed, double position});
 }
 
 /// @nodoc
@@ -58,11 +63,13 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
     Object id = freezed,
     Object title = freezed,
     Object completed = freezed,
+    Object position = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       completed: completed == freezed ? _value.completed : completed as bool,
+      position: position == freezed ? _value.position : position as double,
     ));
   }
 }
@@ -72,7 +79,7 @@ abstract class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
   factory _$TodoCopyWith(_Todo value, $Res Function(_Todo) then) =
       __$TodoCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String title, bool completed});
+  $Res call({String id, String title, bool completed, double position});
 }
 
 /// @nodoc
@@ -89,21 +96,28 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
     Object id = freezed,
     Object title = freezed,
     Object completed = freezed,
+    Object position = freezed,
   }) {
     return _then(_Todo(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       completed: completed == freezed ? _value.completed : completed as bool,
+      position: position == freezed ? _value.position : position as double,
     ));
   }
 }
 
 /// @nodoc
 class _$_Todo with DiagnosticableTreeMixin implements _Todo {
-  _$_Todo({@required this.id, @required this.title, @required this.completed})
+  _$_Todo(
+      {@required this.id,
+      @required this.title,
+      @required this.completed,
+      @required this.position})
       : assert(id != null),
         assert(title != null),
-        assert(completed != null);
+        assert(completed != null),
+        assert(position != null);
 
   @override
   final String id;
@@ -111,10 +125,12 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   final String title;
   @override
   final bool completed;
+  @override
+  final double position;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Todo(id: $id, title: $title, completed: $completed)';
+    return 'Todo(id: $id, title: $title, completed: $completed, position: $position)';
   }
 
   @override
@@ -124,7 +140,8 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       ..add(DiagnosticsProperty('type', 'Todo'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('completed', completed));
+      ..add(DiagnosticsProperty('completed', completed))
+      ..add(DiagnosticsProperty('position', position));
   }
 
   @override
@@ -137,7 +154,10 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.completed, completed) ||
                 const DeepCollectionEquality()
-                    .equals(other.completed, completed)));
+                    .equals(other.completed, completed)) &&
+            (identical(other.position, position) ||
+                const DeepCollectionEquality()
+                    .equals(other.position, position)));
   }
 
   @override
@@ -145,7 +165,8 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(completed);
+      const DeepCollectionEquality().hash(completed) ^
+      const DeepCollectionEquality().hash(position);
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +178,8 @@ abstract class _Todo implements Todo {
   factory _Todo(
       {@required String id,
       @required String title,
-      @required bool completed}) = _$_Todo;
+      @required bool completed,
+      @required double position}) = _$_Todo;
 
   @override
   String get id;
@@ -165,6 +187,8 @@ abstract class _Todo implements Todo {
   String get title;
   @override
   bool get completed;
+  @override
+  double get position;
   @override
   @JsonKey(ignore: true)
   _$TodoCopyWith<_Todo> get copyWith;
