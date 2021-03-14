@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,14 +29,11 @@ class TodoScreen extends HookWidget {
             ),
             body: ReorderableListView(
               onReorder: (oldIndex, newIndex) {
-                // FIXME
-                // if (oldIndex < newIndex) {
-                //   newIndex -= 1;
-                // }
-                // final todosDup = [...todos.data.value];
-                // final item = todosDup.removeAt(oldIndex);
-                // todosDup.insert(newIndex, item);
-                // todos.data.value = todosDup;
+                if (oldIndex < newIndex) {
+                  newIndex -= 1;
+                }
+                final targetTodo = todos.items[oldIndex];
+                todoController.updateOrder(targetTodo.id, newIndex);
               },
               children: [
                 for (final todo in todos.items)

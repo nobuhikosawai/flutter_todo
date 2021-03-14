@@ -9,4 +9,7 @@ abstract class TodoRepository {
       {@required String meId,
       @required String title,
       @required double position});
+
+  Future<void> updateTodo(
+      {@required String id, String title, bool completed, double position});
 }

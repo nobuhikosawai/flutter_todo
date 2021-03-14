@@ -46,4 +46,22 @@ class TodoRepositoryImpl extends TodoRepository {
       'position': position
     });
   }
+
+  @override
+  Future<void> updateTodo(
+      {String id, String title, bool completed, double position}) async {
+    final queryMap = <String, dynamic>{};
+
+    if (title != null && title.isNotEmpty) {
+      queryMap['title'] = title;
+    }
+    if (completed != null) {
+      queryMap['completed'] = completed;
+    }
+    if (position != null) {
+      queryMap['position'] = position;
+    }
+
+    await _firestore.collection('todos').doc(id).update(queryMap);
+  }
 }
