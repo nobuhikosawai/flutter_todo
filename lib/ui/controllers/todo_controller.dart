@@ -42,4 +42,13 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
         newState.items.firstWhere((item) => item.id == id).position;
     await _repository.updateTodo(id: id, position: position);
   }
+
+  Future<void> toggleTodo(String id) async {
+    _repository ??= _reference.read(todoRepositoryProvider);
+    final newState = state.data.value.toggle(id);
+    state = AsyncValue.data(newState);
+    final completed =
+        newState.items.firstWhere((item) => item.id == id).completed;
+    await _repository.updateTodo(id: id, completed: completed);
+  }
 }

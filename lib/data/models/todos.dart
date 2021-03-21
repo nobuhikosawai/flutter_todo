@@ -33,6 +33,18 @@ abstract class Todos implements _$Todos {
     return copyWith(items: newItems);
   }
 
+  Todos toggle(String id) {
+    final newItems = items.map((item) {
+      if (item.id == id) {
+        return item.copyWith(completed: !item.completed);
+      } else {
+        return item;
+      }
+    }).toList();
+
+    return copyWith(items: newItems);
+  }
+
   double _reorderedPositionAtNewIndex(int newIndex) {
     if (items.isEmpty) {
       throw StateError('Empty items');

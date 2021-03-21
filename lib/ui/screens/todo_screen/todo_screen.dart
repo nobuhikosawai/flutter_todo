@@ -43,7 +43,9 @@ class TodoScreen extends HookWidget {
                       activeColor: CustomColor.primary,
                       title: Text(todo.title),
                       value: todo.completed,
-                      onChanged: (value) {})
+                      onChanged: (value) {
+                        todoController.toggleTodo(todo.id);
+                      })
               ],
             ),
             floatingActionButton: FloatingActionButton(
