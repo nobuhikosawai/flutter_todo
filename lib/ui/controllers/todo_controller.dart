@@ -36,7 +36,10 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
 
   Future<void> updateOrder(String id, int newIndex) async {
     _repository ??= _reference.read(todoRepositoryProvider);
-    final position = state.data.value.reorderedPositionAtNewIndex(newIndex);
+    final newState = state.data.value.reorder(id, newIndex);
+    state = AsyncValue.data(newState);
+    final position =
+        newState.items.firstWhere((item) => item.id == id).position;
     await _repository.updateTodo(id: id, position: position);
   }
 }

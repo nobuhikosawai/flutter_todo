@@ -19,7 +19,21 @@ abstract class Todos implements _$Todos {
     return items.isNotEmpty ? items[0].position + 65535.0 : 65535.0;
   }
 
-  double reorderedPositionAtNewIndex(int newIndex) {
+  Todos reorder(String id, int newIndex) {
+    final newPosition = _reorderedPositionAtNewIndex(newIndex);
+    final newItems = items.map((item) {
+      if (item.id == id) {
+        return item.copyWith(position: newPosition);
+      } else {
+        return item;
+      }
+    }).toList();
+    newItems.sort((a, b) => b.position.compareTo(a.position));
+
+    return copyWith(items: newItems);
+  }
+
+  double _reorderedPositionAtNewIndex(int newIndex) {
     if (items.isEmpty) {
       throw StateError('Empty items');
     }
