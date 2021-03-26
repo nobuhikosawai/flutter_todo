@@ -43,7 +43,7 @@ class TodoScreen extends HookWidget {
                     TodoItem(
                         key: Key(todo.id),
                         todo: todo,
-                        onFocusChange: (_) => print('focus changed'),
+                        onFocusChange: todoController.update,
                         onChange: (_) => todoController.toggleTodo(todo.id))
                 ],
               ),

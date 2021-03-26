@@ -14,7 +14,7 @@ class TodoItem extends HookWidget {
 
   final Todo todo;
   final ValueChanged<bool> onChange;
-  final ValueChanged<bool> onFocusChange;
+  final Function onFocusChange;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class TodoItem extends HookWidget {
           if (focused) {
             titleEditController.text = todo.title;
           } else {
-            onFocusChange(focused);
+            onFocusChange(id: todo.id, title: titleEditController.text);
           }
         },
         child: InkWell(
