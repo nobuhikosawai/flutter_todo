@@ -60,4 +60,12 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
         newState.items.firstWhere((item) => item.id == id).title;
     await _repository.updateTodo(id: id, title: newTitle);
   }
+
+  Future<void> delete(String id) async {
+    _repository ??= _reference.read(todoRepositoryProvider);
+    final newState = state.data.value.delete(id);
+    print(newState);
+    state = AsyncValue.data(newState);
+    await _repository.deleteTodo(id: id);
+  }
 }

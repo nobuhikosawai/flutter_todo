@@ -44,7 +44,10 @@ class TodoScreen extends HookWidget {
                         key: Key(todo.id),
                         todo: todo,
                         onFocusChange: todoController.update,
-                        onChange: (_) => todoController.toggleTodo(todo.id))
+                        onChange: (_) => todoController.toggleTodo(todo.id),
+                        // TODO: show snackBar and enable undo
+                        onDismissed: () => todoController.delete(todo.id),
+                    )
                 ],
               ),
               floatingActionButton: FloatingActionButton(

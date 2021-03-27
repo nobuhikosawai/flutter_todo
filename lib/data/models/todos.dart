@@ -57,6 +57,11 @@ abstract class Todos implements _$Todos {
     return copyWith(items: newItems);
   }
 
+  Todos delete(String id) {
+    final newItems = items.where((item) => item.id != id).toList();
+    return copyWith(items: newItems);
+  }
+
   double _reorderedPositionAtNewIndex(int newIndex) {
     if (items.isEmpty) {
       throw StateError('Empty items');

@@ -64,4 +64,9 @@ class TodoRepositoryImpl extends TodoRepository {
 
     await _firestore.collection('todos').doc(id).update(queryMap);
   }
+
+  @override
+  Future<void> deleteTodo({String id}) async {
+    await _firestore.collection('todos').doc(id).delete();
+  }
 }

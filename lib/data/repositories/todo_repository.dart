@@ -12,4 +12,6 @@ abstract class TodoRepository {
 
   Future<void> updateTodo(
       {@required String id, String title, bool completed, double position});
+
+  Future<void> deleteTodo({@required String id});
 }

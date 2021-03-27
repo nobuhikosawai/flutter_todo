@@ -8,12 +8,14 @@ class TodoItem extends HookWidget {
   TodoItem({@required this.todo,
     @required this.onChange,
     @required this.onFocusChange,
+    @required this.onDismissed,
     Key key})
       : super(key: key);
 
   final Todo todo;
   final ValueChanged<bool> onChange;
   final Function onFocusChange;
+  final Function onDismissed;
 
   Widget _slideLeftBackground() {
     return Container(
@@ -58,6 +60,9 @@ class TodoItem extends HookWidget {
         key: Key(todo.id),
         direction: DismissDirection.endToStart,
         background: _slideLeftBackground(),
+        onDismissed: (_direction) {
+          onDismissed();
+        },
         child: Focus(
             focusNode: itemFocusNode,
             onFocusChange: (focused) {
