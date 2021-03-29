@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_example/ui/screens/todo_screen/todo_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:reorderables/reorderables.dart';
 
 import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
@@ -23,59 +24,83 @@ class TodoScreen extends HookWidget {
 
     return todos.when(
         data: (todos) {
+          final uncompletedTodos =
+              todos.items.where((todo) => !todo.completed).toList();
+          final completedTodos =
+              todos.items.where((todo) => todo.completed).toList();
+
           return GestureDetector(
-            onTap: () => FocusScope.of(context).unfocus(),
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text('Your Awesome Todos!'),
-                backgroundColor: CustomColor.primary,
-              ),
-              body: ReorderableListView(
-                onReorder: (oldIndex, newIndex) {
-                  if (oldIndex < newIndex) {
-                    newIndex -= 1;
-                  }
-                  final targetTodo = todos.items[oldIndex];
-                  todoController.updateOrder(targetTodo.id, newIndex);
-                },
-                children: [
-                  for (final todo in todos.items)
-                    TodoItem(
-                        key: Key(todo.id),
-                        todo: todo,
-                        onFocusChange: todoController.update,
-                        onChange: (_) => todoController.toggleTodo(todo.id),
-                        // TODO: show snackBar and enable undo
-                        onDismissed: () => todoController.delete(todo.id),
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Scaffold(
+                appBar: AppBar(
+                  title: Text('Your Awesome Todos!'),
+                  backgroundColor: CustomColor.primary,
+                ),
+                body: CustomScrollView(
+                  slivers: [
+                    ReorderableSliverList(
+                      // TODO: fix reorder to work with completed items.
+                      onReorder: (oldIndex, newIndex) {
+                        if (oldIndex < newIndex) {
+                          newIndex -= 1;
+                        }
+                        final targetTodo = todos.items[oldIndex];
+                        todoController.updateOrder(targetTodo.id, newIndex);
+                      },
+                      delegate: ReorderableSliverChildListDelegate(([
+                        for (final todo in uncompletedTodos)
+                          TodoItem(
+                            key: Key(todo.id),
+                            todo: todo,
+                            onFocusChange: todoController.update,
+                            onChange: (_) => todoController.toggleTodo(todo.id),
+                            // TODO: show snackBar and enable undo
+                            onDismissed: () => todoController.delete(todo.id),
+                          )
+                      ])),
+                    ),
+                    SliverList(
+                      delegate: SliverChildListDelegate([
+                        Text('Completed'),
+                        for (final todo in completedTodos)
+                          TodoItem(
+                            key: Key(todo.id),
+                            todo: todo,
+                            onFocusChange: todoController.update,
+                            onChange: (_) => todoController.toggleTodo(todo.id),
+                            // TODO: show snackBar and enable undo
+                            onDismissed: () => todoController.delete(todo.id),
+                          )
+                      ]),
                     )
-                ],
-              ),
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: CustomColor.primary,
-                onPressed: () {
-                  // ref: https://github.com/flutter/flutter/issues/18564#issuecomment-519429440
-                  showModalBottomSheet<void>(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16.0),
-                            topRight: Radius.circular(16.0)),
-                      ),
-                      context: context,
-                      builder: (buildContext) {
-                        return SingleChildScrollView(
-                            child: Container(
-                                child: Wrap(
-                                  children: [
-                                    TodoInputForm(
-                                        onSaved: (str) => todoController.createTodo(str)),
-                                  ],
-                                )));
-                      });
-                },
-                child: Icon(Icons.add),
-              ),
-            )
-          );
+                  ],
+                ),
+                floatingActionButton: FloatingActionButton(
+                  backgroundColor: CustomColor.primary,
+                  onPressed: () {
+                    // ref: https://github.com/flutter/flutter/issues/18564#issuecomment-519429440
+                    showModalBottomSheet<void>(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.0),
+                              topRight: Radius.circular(16.0)),
+                        ),
+                        context: context,
+                        builder: (buildContext) {
+                          return SingleChildScrollView(
+                              child: Container(
+                                  child: Wrap(
+                            children: [
+                              TodoInputForm(
+                                  onSaved: (str) =>
+                                      todoController.createTodo(str)),
+                            ],
+                          )));
+                        });
+                  },
+                  child: Icon(Icons.add),
+                ),
+              ));
         },
         loading: () => Center(child: CircularProgressIndicator()),
         error: (error, stackTrace) {
