@@ -22,6 +22,8 @@ class TodoScreen extends HookWidget {
     final todos = useProvider(todoProvider(meId).state);
     final todoController = useProvider(todoProvider(meId));
 
+    final displayCompleted = useState<bool>(false);
+
     return todos.when(
         data: (todos) {
           final uncompletedTodos = todos.uncompletedItems;
@@ -59,9 +61,44 @@ class TodoScreen extends HookWidget {
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate([
-                        Text('Completed'),
-                        for (final todo in completedTodos)
-                          TodoItem(
+                        completedTodos.isNotEmpty
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10.0),
+                                child: Row(children: [
+                                  TextButton(
+                                      onPressed: () {
+                                        displayCompleted.value =
+                                            !displayCompleted.value;
+                                      },
+                                      style: TextButton.styleFrom(
+                                          visualDensity: VisualDensity.compact,
+                                          padding: const EdgeInsets.all(12.0),
+                                          primary: Colors.black54,
+                                          backgroundColor: Colors.black12),
+                                      child: Row(children: [
+                                        Text(
+                                          'Completed',
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        displayCompleted.value
+                                            ? Icon(Icons.arrow_drop_up)
+                                            : Icon(Icons.arrow_drop_down)
+                                      ])),
+                                ]))
+                            : Container(),
+                      ]),
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final todo = completedTodos[index];
+
+                          if(!displayCompleted.value) {
+                            return Container();
+                          }
+
+                          return TodoItem(
                             key: Key(todo.id),
                             todo: todo,
                             onFocusChange: todoController.update,
@@ -72,8 +109,10 @@ class TodoScreen extends HookWidget {
                             },
                             // TODO: show snackBar and enable undo
                             onDismissed: () => todoController.delete(todo.id),
-                          )
-                      ]),
+                          );
+                        },
+                        childCount: completedTodos.length,
+                      ),
                     )
                   ],
                 ),
