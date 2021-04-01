@@ -39,17 +39,32 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
     final newState = state.data.value.reorder(id, newIndex);
     state = AsyncValue.data(newState);
     final position =
-        newState.items.firstWhere((item) => item.id == id).position;
+        newState.uncompletedItems.firstWhere((item) => item.id == id).position;
     await _repository.updateTodo(id: id, position: position);
   }
 
-  Future<void> toggleTodo(String id) async {
+  Future<void> completeTodo(String id) async {
     _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.toggle(id);
+    final newState = state.data.value.complete(id);
     state = AsyncValue.data(newState);
-    final completed =
-        newState.items.firstWhere((item) => item.id == id).completed;
-    await _repository.updateTodo(id: id, completed: completed);
+    final completedTodo =
+        newState.completedItems.firstWhere((item) => item.id == id);
+    await _repository.updateTodo(
+        id: id,
+        completed: completedTodo.completed,
+        position: completedTodo.position);
+  }
+
+  Future<void> uncompleteTodo(String id) async {
+    _repository ??= _reference.read(todoRepositoryProvider);
+    final newState = state.data.value.uncomplete(id);
+    state = AsyncValue.data(newState);
+    final uncompletedTodo =
+        newState.uncompletedItems.firstWhere((item) => item.id == id);
+    await _repository.updateTodo(
+        id: id,
+        completed: uncompletedTodo.completed,
+        position: uncompletedTodo.position);
   }
 
   Future<void> update({String id, String title}) async {
@@ -57,14 +72,13 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
     final newState = state.data.value.update(id: id, title: title);
     state = AsyncValue.data(newState);
     final newTitle =
-        newState.items.firstWhere((item) => item.id == id).title;
+        newState.uncompletedItems.firstWhere((item) => item.id == id).title;
     await _repository.updateTodo(id: id, title: newTitle);
   }
 
   Future<void> delete(String id) async {
     _repository ??= _reference.read(todoRepositoryProvider);
     final newState = state.data.value.delete(id);
-    print(newState);
     state = AsyncValue.data(newState);
     await _repository.deleteTodo(id: id);
   }

@@ -14,9 +14,12 @@ class _$TodosTearOff {
   const _$TodosTearOff();
 
 // ignore: unused_element
-  _Todos call({@required List<Todo> items}) {
+  _Todos call(
+      {@required List<Todo> uncompletedItems,
+      @required List<Todo> completedItems}) {
     return _Todos(
-      items: items,
+      uncompletedItems: uncompletedItems,
+      completedItems: completedItems,
     );
   }
 }
@@ -27,7 +30,8 @@ const $Todos = _$TodosTearOff();
 
 /// @nodoc
 mixin _$Todos {
-  List<Todo> get items;
+  List<Todo> get uncompletedItems;
+  List<Todo> get completedItems;
 
   @JsonKey(ignore: true)
   $TodosCopyWith<Todos> get copyWith;
@@ -37,7 +41,7 @@ mixin _$Todos {
 abstract class $TodosCopyWith<$Res> {
   factory $TodosCopyWith(Todos value, $Res Function(Todos) then) =
       _$TodosCopyWithImpl<$Res>;
-  $Res call({List<Todo> items});
+  $Res call({List<Todo> uncompletedItems, List<Todo> completedItems});
 }
 
 /// @nodoc
@@ -50,10 +54,16 @@ class _$TodosCopyWithImpl<$Res> implements $TodosCopyWith<$Res> {
 
   @override
   $Res call({
-    Object items = freezed,
+    Object uncompletedItems = freezed,
+    Object completedItems = freezed,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed ? _value.items : items as List<Todo>,
+      uncompletedItems: uncompletedItems == freezed
+          ? _value.uncompletedItems
+          : uncompletedItems as List<Todo>,
+      completedItems: completedItems == freezed
+          ? _value.completedItems
+          : completedItems as List<Todo>,
     ));
   }
 }
@@ -63,7 +73,7 @@ abstract class _$TodosCopyWith<$Res> implements $TodosCopyWith<$Res> {
   factory _$TodosCopyWith(_Todos value, $Res Function(_Todos) then) =
       __$TodosCopyWithImpl<$Res>;
   @override
-  $Res call({List<Todo> items});
+  $Res call({List<Todo> uncompletedItems, List<Todo> completedItems});
 }
 
 /// @nodoc
@@ -77,26 +87,36 @@ class __$TodosCopyWithImpl<$Res> extends _$TodosCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object items = freezed,
+    Object uncompletedItems = freezed,
+    Object completedItems = freezed,
   }) {
     return _then(_Todos(
-      items: items == freezed ? _value.items : items as List<Todo>,
+      uncompletedItems: uncompletedItems == freezed
+          ? _value.uncompletedItems
+          : uncompletedItems as List<Todo>,
+      completedItems: completedItems == freezed
+          ? _value.completedItems
+          : completedItems as List<Todo>,
     ));
   }
 }
 
 /// @nodoc
 class _$_Todos extends _Todos with DiagnosticableTreeMixin {
-  const _$_Todos({@required this.items})
-      : assert(items != null),
+  const _$_Todos(
+      {@required this.uncompletedItems, @required this.completedItems})
+      : assert(uncompletedItems != null),
+        assert(completedItems != null),
         super._();
 
   @override
-  final List<Todo> items;
+  final List<Todo> uncompletedItems;
+  @override
+  final List<Todo> completedItems;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Todos(items: $items)';
+    return 'Todos(uncompletedItems: $uncompletedItems, completedItems: $completedItems)';
   }
 
   @override
@@ -104,20 +124,27 @@ class _$_Todos extends _Todos with DiagnosticableTreeMixin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Todos'))
-      ..add(DiagnosticsProperty('items', items));
+      ..add(DiagnosticsProperty('uncompletedItems', uncompletedItems))
+      ..add(DiagnosticsProperty('completedItems', completedItems));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Todos &&
-            (identical(other.items, items) ||
-                const DeepCollectionEquality().equals(other.items, items)));
+            (identical(other.uncompletedItems, uncompletedItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.uncompletedItems, uncompletedItems)) &&
+            (identical(other.completedItems, completedItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.completedItems, completedItems)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(items);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(uncompletedItems) ^
+      const DeepCollectionEquality().hash(completedItems);
 
   @JsonKey(ignore: true)
   @override
@@ -127,10 +154,14 @@ class _$_Todos extends _Todos with DiagnosticableTreeMixin {
 
 abstract class _Todos extends Todos {
   const _Todos._() : super._();
-  const factory _Todos({@required List<Todo> items}) = _$_Todos;
+  const factory _Todos(
+      {@required List<Todo> uncompletedItems,
+      @required List<Todo> completedItems}) = _$_Todos;
 
   @override
-  List<Todo> get items;
+  List<Todo> get uncompletedItems;
+  @override
+  List<Todo> get completedItems;
   @override
   @JsonKey(ignore: true)
   _$TodosCopyWith<_Todos> get copyWith;

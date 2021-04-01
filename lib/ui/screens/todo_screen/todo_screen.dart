@@ -24,10 +24,8 @@ class TodoScreen extends HookWidget {
 
     return todos.when(
         data: (todos) {
-          final uncompletedTodos =
-              todos.items.where((todo) => !todo.completed).toList();
-          final completedTodos =
-              todos.items.where((todo) => todo.completed).toList();
+          final uncompletedTodos = todos.uncompletedItems;
+          final completedTodos = todos.completedItems;
 
           return GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -44,7 +42,8 @@ class TodoScreen extends HookWidget {
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
-                        final targetTodo = todos.items[oldIndex];
+
+                        final targetTodo = todos.uncompletedItems[oldIndex];
                         todoController.updateOrder(targetTodo.id, newIndex);
                       },
                       delegate: ReorderableSliverChildListDelegate(([
@@ -53,7 +52,11 @@ class TodoScreen extends HookWidget {
                             key: Key(todo.id),
                             todo: todo,
                             onFocusChange: todoController.update,
-                            onChange: (_) => todoController.toggleTodo(todo.id),
+                            onChange: (value) {
+                              value
+                                  ? todoController.completeTodo(todo.id)
+                                  : todoController.uncompleteTodo(todo.id);
+                            },
                             // TODO: show snackBar and enable undo
                             onDismissed: () => todoController.delete(todo.id),
                           )
@@ -67,7 +70,11 @@ class TodoScreen extends HookWidget {
                             key: Key(todo.id),
                             todo: todo,
                             onFocusChange: todoController.update,
-                            onChange: (_) => todoController.toggleTodo(todo.id),
+                            onChange: (value) {
+                              value
+                                  ? todoController.completeTodo(todo.id)
+                                  : todoController.uncompleteTodo(todo.id);
+                            },
                             // TODO: show snackBar and enable undo
                             onDismissed: () => todoController.delete(todo.id),
                           )

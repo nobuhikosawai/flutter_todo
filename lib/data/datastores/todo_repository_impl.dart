@@ -33,7 +33,12 @@ class TodoRepositoryImpl extends TodoRepository {
         );
       }).toList();
 
-      yield Todos(items: todoList);
+      final uncompletedItems =
+          todoList.where((item) => !item.completed).toList();
+      final completedItems = todoList.where((item) => item.completed).toList();
+
+      yield Todos(
+          uncompletedItems: uncompletedItems, completedItems: completedItems);
     });
   }
 
