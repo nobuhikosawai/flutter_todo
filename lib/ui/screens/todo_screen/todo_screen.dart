@@ -37,12 +37,7 @@ class TodoScreen extends HookWidget {
                 body: CustomScrollView(
                   slivers: [
                     ReorderableSliverList(
-                      // TODO: fix reorder to work with completed items.
                       onReorder: (oldIndex, newIndex) {
-                        if (oldIndex < newIndex) {
-                          newIndex -= 1;
-                        }
-
                         final targetTodo = todos.uncompletedItems[oldIndex];
                         todoController.updateOrder(targetTodo.id, newIndex);
                       },
