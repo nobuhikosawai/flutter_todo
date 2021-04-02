@@ -78,7 +78,7 @@ abstract class Todos implements _$Todos {
     final newUncompletedItems =
         uncompletedItems.where((item) => item.id != id).toList();
     final newCompletedItems =
-        uncompletedItems.where((item) => item.id != id).toList();
+        completedItems.where((item) => item.id != id).toList();
     return copyWith(
         uncompletedItems: newUncompletedItems,
         completedItems: newCompletedItems);
