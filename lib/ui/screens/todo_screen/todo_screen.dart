@@ -9,6 +9,7 @@ import 'package:reorderables/reorderables.dart';
 import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
 import '../../controllers/todo_controller.dart';
+import 'completed_todo_item.dart';
 import 'todo_input_form.dart';
 
 class TodoScreen extends HookWidget {
@@ -49,11 +50,8 @@ class TodoScreen extends HookWidget {
                             key: Key(todo.id),
                             todo: todo,
                             onFocusChange: todoController.update,
-                            onChange: (value) {
-                              value
-                                  ? todoController.completeTodo(todo.id)
-                                  : todoController.uncompleteTodo(todo.id);
-                            },
+                            onChange: (_) =>
+                                todoController.completeTodo(todo.id),
                             // TODO: show snackBar and enable undo
                             onDismissed: () => todoController.delete(todo.id),
                           )
@@ -94,19 +92,15 @@ class TodoScreen extends HookWidget {
                         (context, index) {
                           final todo = completedTodos[index];
 
-                          if(!displayCompleted.value) {
+                          if (!displayCompleted.value) {
                             return Container();
                           }
 
-                          return TodoItem(
+                          return CompletedTodoItem(
                             key: Key(todo.id),
                             todo: todo,
-                            onFocusChange: todoController.update,
-                            onChange: (value) {
-                              value
-                                  ? todoController.completeTodo(todo.id)
-                                  : todoController.uncompleteTodo(todo.id);
-                            },
+                            onChange: (_) =>
+                                todoController.uncompleteTodo(todo.id),
                             // TODO: show snackBar and enable undo
                             onDismissed: () => todoController.delete(todo.id),
                           );
