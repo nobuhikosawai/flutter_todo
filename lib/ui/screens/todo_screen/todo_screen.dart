@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_example/ui/screens/todo_screen/todo_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:reorderables/reorderables.dart';
 
 import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
@@ -39,23 +38,29 @@ class TodoScreen extends HookWidget {
                 ),
                 body: CustomScrollView(
                   slivers: [
-                    ReorderableSliverList(
+                    SliverReorderableList(
                       onReorder: (oldIndex, newIndex) {
-                        final targetTodo = todos.uncompletedItems[oldIndex];
+                        final targetTodo = uncompletedTodos[oldIndex];
                         todoController.updateOrder(targetTodo.id, newIndex);
                       },
-                      delegate: ReorderableSliverChildListDelegate(([
-                        for (final todo in uncompletedTodos)
-                          TodoItem(
+                      itemBuilder: (context, index) {
+                        final todo = uncompletedTodos[index];
+                        return Container(
                             key: Key(todo.id),
-                            todo: todo,
-                            onFocusChange: todoController.update,
-                            onChange: (_) =>
-                                todoController.completeTodo(todo.id),
-                            // TODO: show snackBar and enable undo
-                            onDismissed: () => todoController.delete(todo.id),
-                          )
-                      ])),
+                            child: ReorderableDragStartListener(
+                              index: index,
+                              child: TodoItem(
+                                todo: todo,
+                                onFocusChange: todoController.update,
+                                onChange: (_) =>
+                                    todoController.completeTodo(todo.id),
+                                // TODO: show snackBar and enable undo
+                                onDismissed: () =>
+                                    todoController.delete(todo.id),
+                              ),
+                            ));
+                      },
+                      itemCount: todos.uncompletedItems.length,
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate([

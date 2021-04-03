@@ -5,11 +5,12 @@ import '../../../data/models/todo.dart';
 import '../../common/custom_color.dart';
 
 class TodoItem extends HookWidget {
-  TodoItem({@required this.todo,
-    @required this.onChange,
-    @required this.onFocusChange,
-    @required this.onDismissed,
-    Key key})
+  TodoItem(
+      {@required this.todo,
+      @required this.onChange,
+      @required this.onFocusChange,
+      @required this.onDismissed,
+      Key key})
       : super(key: key);
 
   final Todo todo;
@@ -63,44 +64,45 @@ class TodoItem extends HookWidget {
         onDismissed: (_direction) {
           onDismissed();
         },
-        child: Focus(
-            focusNode: itemFocusNode,
-            onFocusChange: (focused) {
-              if (focused) {
-                titleEditController.text = todo.title;
-              } else {
-                onFocusChange(id: todo.id, title: titleEditController.text);
-              }
-            },
-            child: InkWell(
-              onTap: () {
-                itemFocusNode.requestFocus();
-                textFieldFocusNode.requestFocus();
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Checkbox(
-                      value: todo.completed,
-                      onChanged: onChange,
-                      activeColor: CustomColor.primary,
+        child: Material(
+            child: Focus(
+                focusNode: itemFocusNode,
+                onFocusChange: (focused) {
+                  if (focused) {
+                    titleEditController.text = todo.title;
+                  } else {
+                    onFocusChange(id: todo.id, title: titleEditController.text);
+                  }
+                },
+                child: InkWell(
+                  onTap: () {
+                    itemFocusNode.requestFocus();
+                    textFieldFocusNode.requestFocus();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Checkbox(
+                          value: todo.completed,
+                          onChanged: onChange,
+                          activeColor: CustomColor.primary,
+                        ),
+                        isFocused
+                            ? Expanded(
+                                child: TextField(
+                                autofocus: true,
+                                focusNode: textFieldFocusNode,
+                                controller: titleEditController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                ),
+                              ))
+                            : Expanded(child: Text(todo.title))
+                      ],
                     ),
-                    isFocused
-                        ? Expanded(
-                        child: TextField(
-                          autofocus: true,
-                          focusNode: textFieldFocusNode,
-                          controller: titleEditController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none),
-                          ),
-                        ))
-                        : Expanded(child: Text(todo.title))
-                  ],
-                ),
-              ),
-            )));
+                  ),
+                ))));
   }
 }
