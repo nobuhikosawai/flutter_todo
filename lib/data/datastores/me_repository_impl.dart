@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-import '../models/me.dart';
+import '../entities/me.dart';
 import '../repositories/me_repository.dart';
 
 class MeRepositoryImpl implements MeRepository {

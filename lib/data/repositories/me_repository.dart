@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/me.dart';
+import '../entities/me.dart';
 
 abstract class MeRepository {
   Stream<Me> getMe();

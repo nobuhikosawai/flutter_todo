@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../models/todos.dart';
+import '../entities/todos.dart';
 
 abstract class TodoRepository {
   Stream<Todos> listTodos({@required String meId});

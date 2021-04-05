@@ -4,7 +4,7 @@ import 'package:flutter_example/data/repositories/me_repository.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../data/models/me.dart';
+import '../../data/entities/me.dart';
 
 final meProvider = StateNotifierProvider((ref) => MeController(ref));
 

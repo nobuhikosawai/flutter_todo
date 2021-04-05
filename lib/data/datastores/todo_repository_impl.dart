@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
-import '../models/todo.dart';
-import '../models/todos.dart';
+import '../entities/todo.dart';
+import '../entities/todos.dart';
 import '../repositories/todo_repository.dart';
 
 class TodoRepositoryImpl extends TodoRepository {

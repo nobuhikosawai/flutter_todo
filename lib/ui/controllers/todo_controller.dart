@@ -3,7 +3,7 @@ import 'package:flutter_example/data/providers/todo_repository_provider.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
 
-import '../../data/models/todos.dart';
+import '../../data/entities/todos.dart';
 import '../../data/repositories/todo_repository.dart';
 
 final todoProvider = StateNotifierProvider.family<TodoController, String>(
