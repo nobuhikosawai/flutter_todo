@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 
+import '../entities/todo.dart';
 import '../entities/todos.dart';
 
 abstract class TodoRepository {
   Stream<Todos> listTodos({@required String meId});
 
-  Future<void> createTodo(
+  Future<Todo> createTodo(
       {@required String meId,
       @required String title,
       @required double position});

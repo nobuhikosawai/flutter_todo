@@ -43,13 +43,20 @@ class TodoRepositoryImpl extends TodoRepository {
   }
 
   @override
-  Future<void> createTodo({String meId, String title, double position}) async {
-    await _firestore.collection('todos').add(<String, dynamic>{
+  Future<Todo> createTodo({String meId, String title, double position}) async {
+    final ref = await _firestore.collection('todos').add(<String, dynamic>{
       'auth_id': meId,
       'title': title,
       'completed': false,
       'position': position
     });
+    final data = await ref.get();
+    return Todo(
+      id: data.id,
+      title: data['title'] as String,
+      completed: data['completed'] as bool,
+      position: data['position'] as double,
+    );
   }
 
   @override
