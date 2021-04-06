@@ -10,5 +10,7 @@ abstract class Todo with _$Todo {
     @required String title,
     @required bool completed,
     @required double position,
+    @required DateTime createdAt,
+    @required DateTime updatedAt,
   }) = _Todo;
 }

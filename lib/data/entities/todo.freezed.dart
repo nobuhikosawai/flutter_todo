@@ -18,12 +18,16 @@ class _$TodoTearOff {
       {@required String id,
       @required String title,
       @required bool completed,
-      @required double position}) {
+      @required double position,
+      @required DateTime createdAt,
+      @required DateTime updatedAt}) {
     return _Todo(
       id: id,
       title: title,
       completed: completed,
       position: position,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }
@@ -38,6 +42,8 @@ mixin _$Todo {
   String get title;
   bool get completed;
   double get position;
+  DateTime get createdAt;
+  DateTime get updatedAt;
 
   @JsonKey(ignore: true)
   $TodoCopyWith<Todo> get copyWith;
@@ -47,7 +53,13 @@ mixin _$Todo {
 abstract class $TodoCopyWith<$Res> {
   factory $TodoCopyWith(Todo value, $Res Function(Todo) then) =
       _$TodoCopyWithImpl<$Res>;
-  $Res call({String id, String title, bool completed, double position});
+  $Res call(
+      {String id,
+      String title,
+      bool completed,
+      double position,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -64,12 +76,18 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
     Object title = freezed,
     Object completed = freezed,
     Object position = freezed,
+    Object createdAt = freezed,
+    Object updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       completed: completed == freezed ? _value.completed : completed as bool,
       position: position == freezed ? _value.position : position as double,
+      createdAt:
+          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      updatedAt:
+          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
     ));
   }
 }
@@ -79,7 +97,13 @@ abstract class _$TodoCopyWith<$Res> implements $TodoCopyWith<$Res> {
   factory _$TodoCopyWith(_Todo value, $Res Function(_Todo) then) =
       __$TodoCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String title, bool completed, double position});
+  $Res call(
+      {String id,
+      String title,
+      bool completed,
+      double position,
+      DateTime createdAt,
+      DateTime updatedAt});
 }
 
 /// @nodoc
@@ -97,12 +121,18 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
     Object title = freezed,
     Object completed = freezed,
     Object position = freezed,
+    Object createdAt = freezed,
+    Object updatedAt = freezed,
   }) {
     return _then(_Todo(
       id: id == freezed ? _value.id : id as String,
       title: title == freezed ? _value.title : title as String,
       completed: completed == freezed ? _value.completed : completed as bool,
       position: position == freezed ? _value.position : position as double,
+      createdAt:
+          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
+      updatedAt:
+          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
     ));
   }
 }
@@ -113,11 +143,15 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       {@required this.id,
       @required this.title,
       @required this.completed,
-      @required this.position})
+      @required this.position,
+      @required this.createdAt,
+      @required this.updatedAt})
       : assert(id != null),
         assert(title != null),
         assert(completed != null),
-        assert(position != null);
+        assert(position != null),
+        assert(createdAt != null),
+        assert(updatedAt != null);
 
   @override
   final String id;
@@ -127,10 +161,14 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   final bool completed;
   @override
   final double position;
+  @override
+  final DateTime createdAt;
+  @override
+  final DateTime updatedAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Todo(id: $id, title: $title, completed: $completed, position: $position)';
+    return 'Todo(id: $id, title: $title, completed: $completed, position: $position, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -141,7 +179,9 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('completed', completed))
-      ..add(DiagnosticsProperty('position', position));
+      ..add(DiagnosticsProperty('position', position))
+      ..add(DiagnosticsProperty('createdAt', createdAt))
+      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
@@ -157,7 +197,13 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
                     .equals(other.completed, completed)) &&
             (identical(other.position, position) ||
                 const DeepCollectionEquality()
-                    .equals(other.position, position)));
+                    .equals(other.position, position)) &&
+            (identical(other.createdAt, createdAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.createdAt, createdAt)) &&
+            (identical(other.updatedAt, updatedAt) ||
+                const DeepCollectionEquality()
+                    .equals(other.updatedAt, updatedAt)));
   }
 
   @override
@@ -166,7 +212,9 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(completed) ^
-      const DeepCollectionEquality().hash(position);
+      const DeepCollectionEquality().hash(position) ^
+      const DeepCollectionEquality().hash(createdAt) ^
+      const DeepCollectionEquality().hash(updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -179,7 +227,9 @@ abstract class _Todo implements Todo {
       {@required String id,
       @required String title,
       @required bool completed,
-      @required double position}) = _$_Todo;
+      @required double position,
+      @required DateTime createdAt,
+      @required DateTime updatedAt}) = _$_Todo;
 
   @override
   String get id;
@@ -189,6 +239,10 @@ abstract class _Todo implements Todo {
   bool get completed;
   @override
   double get position;
+  @override
+  DateTime get createdAt;
+  @override
+  DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$TodoCopyWith<_Todo> get copyWith;
