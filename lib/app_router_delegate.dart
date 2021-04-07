@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_example/ui/screens/sign_in_screen/sign_in_screen.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app_router_configuration.dart';
 import 'data/entities/me.dart';
+import 'ui/screens/sign_in_screen/sign_in_screen.dart';
+import 'ui/screens/splash_screen/splash_screen.dart';
 import 'ui/screens/todo_screen/todo_screen.dart';
 
 class AppRouterDelegate extends RouterDelegate<AppRouterConfiguration>
@@ -54,7 +55,7 @@ class AppRouterDelegate extends RouterDelegate<AppRouterConfiguration>
               MaterialPage<void>(key: ValueKey('home'), child: TodoScreen()),
             ],
       loading: () => _pages = [
-        MaterialPage<void>(key: ValueKey('splash'), child: Container()),
+        MaterialPage<void>(key: ValueKey('splash'), child: SplashScreen()),
       ],
       error: (error, stack) => _pages = [
         MaterialPage<void>(key: ValueKey('unknown'), child: Container())
