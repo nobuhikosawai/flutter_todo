@@ -30,12 +30,14 @@ class TodoRepositoryImpl extends TodoRepository {
           title: d['title'] as String,
           completed: d['completed'] as bool,
           position: d['position'] as double,
-          createdAt: (d['created_at'] as Timestamp).toDate(),
           // This is a workaround because updatedAt is changed by updateTodo method with
           // ServerTimestamp, updateAt can be null during update.
           // There is a way to use serverTimestampBehavior of SnapshotOptions for
           // other platform such as iOS and android so this should be fix to flutter
           // any time soon. Meanwhile the workaround is used.
+          createdAt: d['created_at'] == null
+              ? DateTime.now()
+              : (d['created_at'] as Timestamp).toDate(),
           updatedAt: d['updated_at'] == null
               ? DateTime.now()
               : (d['updated_at'] as Timestamp).toDate(),
