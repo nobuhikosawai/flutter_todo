@@ -29,7 +29,7 @@ class TodoRepositoryImpl extends TodoRepository {
           id: d.id,
           title: d['title'] as String,
           completed: d['completed'] as bool,
-          position: d['position'] as double,
+          position: (d['position'] as num).toDouble(),
           // This is a workaround because updatedAt is changed by updateTodo method with
           // ServerTimestamp, updateAt can be null during update.
           // There is a way to use serverTimestampBehavior of SnapshotOptions for
