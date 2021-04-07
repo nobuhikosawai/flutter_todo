@@ -40,6 +40,20 @@
       });
     }
   </script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+  <!-- Firebase Configuration -->
+  <script>
+      var firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        projectId: "YOUR_PROJECT_ID",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+  <!-- use old version for workaround. https://github.com/FirebaseExtended/flutterfire/issues/4127#issuecomment-771079698 -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-auth.js"></script>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
