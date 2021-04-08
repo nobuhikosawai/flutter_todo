@@ -5,7 +5,6 @@ import 'package:flutter_example/ui/screens/todo_screen/todo_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
 import '../../controllers/todo_controller.dart';
 import 'completed_todo_item.dart';
@@ -32,91 +31,113 @@ class TodoScreen extends HookWidget {
           return GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Scaffold(
-                appBar: AppBar(
-                  title: Text('Your Awesome Todos!'),
-                  backgroundColor: CustomColor.primary,
-                ),
-                body: CustomScrollView(
-                  slivers: [
-                    SliverReorderableList(
-                      onReorder: (oldIndex, newIndex) {
-                        final targetTodo = uncompletedTodos[oldIndex];
-                        todoController.updateOrder(targetTodo.id, newIndex);
-                      },
-                      itemBuilder: (context, index) {
-                        final todo = uncompletedTodos[index];
-                        return Container(
-                            key: Key(todo.id),
-                            child: ReorderableDragStartListener(
-                              index: index,
-                              child: TodoItem(
-                                todo: todo,
-                                onFocusChange: todoController.update,
-                                onChange: (_) =>
-                                    todoController.completeTodo(todo.id),
-                                // TODO: show snackBar and enable undo
-                                onDismissed: () =>
-                                    todoController.delete(todo.id),
+                body: SafeArea(
+                    child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: CustomScrollView(
+                          slivers: [
+                            SliverList(
+                              delegate: SliverChildListDelegate([
+                                Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Text('My Todos',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline2)),
+                              ]),
+                            ),
+                            SliverReorderableList(
+                              onReorder: (oldIndex, newIndex) {
+                                final targetTodo = uncompletedTodos[oldIndex];
+                                todoController.updateOrder(
+                                    targetTodo.id, newIndex);
+                              },
+                              itemBuilder: (context, index) {
+                                final todo = uncompletedTodos[index];
+                                return Container(
+                                    key: Key(todo.id),
+                                    child: ReorderableDragStartListener(
+                                      index: index,
+                                      child: Container(
+                                          margin:
+                                              EdgeInsets.symmetric(vertical: 4),
+                                          child: TodoItem(
+                                            todo: todo,
+                                            onFocusChange:
+                                                todoController.update,
+                                            onChange: (_) => todoController
+                                                .completeTodo(todo.id),
+                                            // TODO: show snackBar and enable undo
+                                            onDismissed: () =>
+                                                todoController.delete(todo.id),
+                                          )),
+                                    ));
+                              },
+                              itemCount: todos.uncompletedItems.length,
+                            ),
+                            SliverList(
+                              delegate: SliverChildListDelegate([
+                                completedTodos.isNotEmpty
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0),
+                                        child: Row(children: [
+                                          TextButton(
+                                              onPressed: () {
+                                                displayCompleted.value =
+                                                    !displayCompleted.value;
+                                              },
+                                              style: TextButton.styleFrom(
+                                                  visualDensity:
+                                                      VisualDensity.compact,
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  primary: Colors.black54,
+                                                  backgroundColor:
+                                                      Colors.black12),
+                                              child: Row(children: [
+                                                Text(
+                                                  'Completed',
+                                                  style:
+                                                      TextStyle(fontSize: 12),
+                                                ),
+                                                displayCompleted.value
+                                                    ? Icon(Icons.arrow_drop_up)
+                                                    : Icon(
+                                                        Icons.arrow_drop_down)
+                                              ])),
+                                        ]))
+                                    : Container(),
+                              ]),
+                            ),
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  final todo = completedTodos[index];
+
+                                  if (!displayCompleted.value) {
+                                    return Container();
+                                  }
+
+                                  return Container(
+                                      margin: EdgeInsets.symmetric(vertical: 4),
+                                      child: CompletedTodoItem(
+                                        key: Key(todo.id),
+                                        todo: todo,
+                                        onChange: (_) => todoController
+                                            .uncompleteTodo(todo.id),
+                                        // TODO: show snackBar and enable undo
+                                        onDismissed: () =>
+                                            todoController.delete(todo.id),
+                                      ));
+                                },
+                                childCount: completedTodos.length,
                               ),
-                            ));
-                      },
-                      itemCount: todos.uncompletedItems.length,
-                    ),
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        completedTodos.isNotEmpty
-                            ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10.0),
-                                child: Row(children: [
-                                  TextButton(
-                                      onPressed: () {
-                                        displayCompleted.value =
-                                            !displayCompleted.value;
-                                      },
-                                      style: TextButton.styleFrom(
-                                          visualDensity: VisualDensity.compact,
-                                          padding: const EdgeInsets.all(12.0),
-                                          primary: Colors.black54,
-                                          backgroundColor: Colors.black12),
-                                      child: Row(children: [
-                                        Text(
-                                          'Completed',
-                                          style: TextStyle(fontSize: 12),
-                                        ),
-                                        displayCompleted.value
-                                            ? Icon(Icons.arrow_drop_up)
-                                            : Icon(Icons.arrow_drop_down)
-                                      ])),
-                                ]))
-                            : Container(),
-                      ]),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final todo = completedTodos[index];
-
-                          if (!displayCompleted.value) {
-                            return Container();
-                          }
-
-                          return CompletedTodoItem(
-                            key: Key(todo.id),
-                            todo: todo,
-                            onChange: (_) =>
-                                todoController.uncompleteTodo(todo.id),
-                            // TODO: show snackBar and enable undo
-                            onDismissed: () => todoController.delete(todo.id),
-                          );
-                        },
-                        childCount: completedTodos.length,
-                      ),
-                    )
-                  ],
-                ),
+                            )
+                          ],
+                        ))),
                 floatingActionButton: FloatingActionButton(
-                  backgroundColor: CustomColor.primary,
+                  backgroundColor: Theme.of(context).primaryColor,
                   onPressed: () {
                     // ref: https://github.com/flutter/flutter/issues/18564#issuecomment-519429440
                     showModalBottomSheet<void>(

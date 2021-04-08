@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_example/ui/common/custom_color.dart';
 
 class TodoInputForm extends StatefulWidget {
   TodoInputForm({@required this.onSaved});
@@ -34,7 +33,7 @@ class TodoInputFormState extends State<TodoInputForm> {
           child: Column(
             children: [
               TextFormField(
-                style: TextStyle(fontSize: 16),
+                style: Theme.of(context).textTheme.bodyText1,
                 decoration: InputDecoration(
                   hintText: 'Todo',
                   errorText: _todoTitleErrorText,
@@ -87,10 +86,9 @@ class TodoInputFormState extends State<TodoInputForm> {
                       }
                     },
                     child: Text('Save',
-                        style: TextStyle(
-                            fontSize: 16.0,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: CustomColor.primary)),
+                            color: Theme.of(context).primaryColor)),
                   ))
             ],
           ),

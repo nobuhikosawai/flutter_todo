@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../data/entities/todo.dart';
-import '../../common/custom_color.dart';
 
 class TodoItem extends HookWidget {
   TodoItem(
@@ -18,7 +17,7 @@ class TodoItem extends HookWidget {
   final Function onFocusChange;
   final Function onDismissed;
 
-  Widget _slideLeftBackground() {
+  Widget _slideLeftBackground(BuildContext context) {
     return Container(
       color: Colors.red,
       child: Align(
@@ -28,10 +27,10 @@ class TodoItem extends HookWidget {
           children: <Widget>[
             Text(
               ' Delete',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
               textAlign: TextAlign.right,
             ),
             Icon(
@@ -60,11 +59,12 @@ class TodoItem extends HookWidget {
     return Dismissible(
         key: Key(todo.id),
         direction: DismissDirection.endToStart,
-        background: _slideLeftBackground(),
+        background: _slideLeftBackground(context),
         onDismissed: (_direction) {
           onDismissed();
         },
         child: Material(
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
             child: Focus(
                 focusNode: itemFocusNode,
                 onFocusChange: (focused) {
@@ -80,13 +80,13 @@ class TodoItem extends HookWidget {
                     textFieldFocusNode.requestFocus();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Row(
                       children: <Widget>[
                         Checkbox(
                           value: todo.completed,
                           onChanged: onChange,
-                          activeColor: CustomColor.primary,
+                          activeColor: Theme.of(context).primaryColor,
                         ),
                         isFocused
                             ? Expanded(
@@ -99,7 +99,11 @@ class TodoItem extends HookWidget {
                                       borderSide: BorderSide.none),
                                 ),
                               ))
-                            : Expanded(child: Text(todo.title))
+                            : Expanded(
+                                child: Text(
+                                todo.title,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ))
                       ],
                     ),
                   ),

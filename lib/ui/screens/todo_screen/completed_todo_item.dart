@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../data/entities/todo.dart';
-import '../../common/custom_color.dart';
 
 class CompletedTodoItem extends HookWidget {
   CompletedTodoItem(
@@ -16,7 +15,7 @@ class CompletedTodoItem extends HookWidget {
   final ValueChanged<bool> onChange;
   final Function onDismissed;
 
-  Widget _slideLeftBackground() {
+  Widget _slideLeftBackground(BuildContext context) {
     return Container(
       color: Colors.red,
       child: Align(
@@ -26,10 +25,10 @@ class CompletedTodoItem extends HookWidget {
           children: <Widget>[
             Text(
               ' Delete',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
               textAlign: TextAlign.right,
             ),
             Icon(
@@ -50,27 +49,30 @@ class CompletedTodoItem extends HookWidget {
     return Dismissible(
         key: Key(todo.id),
         direction: DismissDirection.endToStart,
-        background: _slideLeftBackground(),
+        background: _slideLeftBackground(context),
         onDismissed: (_direction) {
           onDismissed();
         },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            children: <Widget>[
-              Checkbox(
-                value: todo.completed,
-                onChanged: onChange,
-                activeColor: CustomColor.primary,
+        child: Material(
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Row(
+                children: <Widget>[
+                  Checkbox(
+                    value: todo.completed,
+                    onChanged: onChange,
+                    activeColor: Theme.of(context).accentColor,
+                  ),
+                  Expanded(
+                      child: Text(
+                    todo.title,
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.grey),
+                  ))
+                ],
               ),
-              Expanded(
-                  child: Text(
-                todo.title,
-                style: TextStyle(
-                    decoration: TextDecoration.lineThrough, color: Colors.grey),
-              ))
-            ],
-          ),
-        ));
+            )));
   }
 }

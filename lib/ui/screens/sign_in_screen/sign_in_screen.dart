@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../common/custom_color.dart';
 import '../../controllers/me_controller.dart';
 
 class SignInScreen extends StatefulHookWidget {
@@ -38,24 +37,21 @@ class SignInScreenState extends State<SignInScreen> {
                 // SizedBox(
                 //     height: 80, width: 80, child: Image.asset('assets/logo.png')),
                 SizedBox(height: 8),
-                Text('Welcome',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                        color: Colors.black87)),
+                Text('Welcome', style: Theme.of(context).textTheme.headline1),
                 SizedBox(height: 80),
                 Form(
                   key: _formKey,
                   child: Column(
                     children: [
                       TextFormField(
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: const EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
                           fillColor: const Color.fromRGBO(0, 0, 0, 0.08),
                           hintText: 'Email',
-                          icon: Icon(Icons.email),
+                          prefixIcon: Icon(Icons.email),
                           errorText: _emailErrorText,
                           border: OutlineInputBorder(
                               borderRadius:
@@ -75,13 +71,14 @@ class SignInScreenState extends State<SignInScreen> {
                       ),
                       SizedBox(height: 32),
                       TextFormField(
+                        style: Theme.of(context).textTheme.bodyText1,
                         decoration: InputDecoration(
                             filled: true,
                             contentPadding: const EdgeInsets.only(
                                 left: 16.0, bottom: 16.0, top: 16.0),
                             fillColor: const Color.fromRGBO(0, 0, 0, 0.08),
                             hintText: 'Password',
-                            icon: Icon(Icons.lock_rounded),
+                            prefixIcon: Icon(Icons.lock_rounded),
                             errorText: _passwordErrorText,
                             border: OutlineInputBorder(
                                 borderRadius: const BorderRadius.all(
@@ -140,7 +137,7 @@ class SignInScreenState extends State<SignInScreen> {
                           child: TextButton(
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                  CustomColor.primary),
+                                  Theme.of(context).primaryColor),
                               shape: MaterialStateProperty.all(
                                   const StadiumBorder()),
                               padding: MaterialStateProperty.all(
@@ -150,10 +147,12 @@ class SignInScreenState extends State<SignInScreen> {
                               _formKey.currentState.save();
                             },
                             child: Text('Log in',
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white)),
                           ))
                     ],
                   ),
