@@ -1,16 +1,18 @@
 # flutter_todo
 
-A new Flutter application.
+An example todo application with Flutter.
+
+<img src="screen_shots/android.png" width="50%">
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Set up your Firebase project ([See the doc](https://firebase.flutter.dev/docs/overview)) and 
+run the local emulator before running the app.
 
-A few resources to get you started if this is your first Flutter project:
+For how to run the Firebase local emulator, please [see the doc](https://firebase.google.com/docs/emulator-suite).
+(Note that currently Firebase Auth emulator is expected to run on port `9099` and Cloud Firestore on `8080`.)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+This example app does not have sign up feature yet, so please create an user on emulator UI first
+to test the app. 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![auth emulator](screen_shots/firebase_auth_local_emulator.png)
