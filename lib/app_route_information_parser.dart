@@ -16,6 +16,5 @@ class AppRouteInformationParser extends RouteInformationParser<AppRouterConfigur
       case AppRouterConfiguration.home:
         return const RouteInformation(location: '/');
     }
-    throw 'unknown';
   }
 }

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'todo.dart';
 
@@ -9,18 +9,20 @@ part of 'todo.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$TodoTearOff {
   const _$TodoTearOff();
 
-// ignore: unused_element
   _Todo call(
-      {@required String id,
-      @required String title,
-      @required bool completed,
-      @required double position,
-      @required DateTime createdAt,
-      @required DateTime updatedAt}) {
+      {required String id,
+      required String title,
+      required bool completed,
+      required double position,
+      required DateTime createdAt,
+      required DateTime updatedAt}) {
     return _Todo(
       id: id,
       title: title,
@@ -33,20 +35,19 @@ class _$TodoTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Todo = _$TodoTearOff();
 
 /// @nodoc
 mixin _$Todo {
-  String get id;
-  String get title;
-  bool get completed;
-  double get position;
-  DateTime get createdAt;
-  DateTime get updatedAt;
+  String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  bool get completed => throw _privateConstructorUsedError;
+  double get position => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TodoCopyWith<Todo> get copyWith;
+  $TodoCopyWith<Todo> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -72,22 +73,38 @@ class _$TodoCopyWithImpl<$Res> implements $TodoCopyWith<$Res> {
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object completed = freezed,
-    Object position = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? completed = freezed,
+    Object? position = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      completed: completed == freezed ? _value.completed : completed as bool,
-      position: position == freezed ? _value.position : position as double,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      completed: completed == freezed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      position: position == freezed
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as double,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -117,22 +134,38 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object title = freezed,
-    Object completed = freezed,
-    Object position = freezed,
-    Object createdAt = freezed,
-    Object updatedAt = freezed,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? completed = freezed,
+    Object? position = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_Todo(
-      id: id == freezed ? _value.id : id as String,
-      title: title == freezed ? _value.title : title as String,
-      completed: completed == freezed ? _value.completed : completed as bool,
-      position: position == freezed ? _value.position : position as double,
-      createdAt:
-          createdAt == freezed ? _value.createdAt : createdAt as DateTime,
-      updatedAt:
-          updatedAt == freezed ? _value.updatedAt : updatedAt as DateTime,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: title == freezed
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      completed: completed == freezed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      position: position == freezed
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as double,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -140,18 +173,12 @@ class __$TodoCopyWithImpl<$Res> extends _$TodoCopyWithImpl<$Res>
 /// @nodoc
 class _$_Todo with DiagnosticableTreeMixin implements _Todo {
   _$_Todo(
-      {@required this.id,
-      @required this.title,
-      @required this.completed,
-      @required this.position,
-      @required this.createdAt,
-      @required this.updatedAt})
-      : assert(id != null),
-        assert(title != null),
-        assert(completed != null),
-        assert(position != null),
-        assert(createdAt != null),
-        assert(updatedAt != null);
+      {required this.id,
+      required this.title,
+      required this.completed,
+      required this.position,
+      required this.createdAt,
+      required this.updatedAt});
 
   @override
   final String id;
@@ -224,26 +251,26 @@ class _$_Todo with DiagnosticableTreeMixin implements _Todo {
 
 abstract class _Todo implements Todo {
   factory _Todo(
-      {@required String id,
-      @required String title,
-      @required bool completed,
-      @required double position,
-      @required DateTime createdAt,
-      @required DateTime updatedAt}) = _$_Todo;
+      {required String id,
+      required String title,
+      required bool completed,
+      required double position,
+      required DateTime createdAt,
+      required DateTime updatedAt}) = _$_Todo;
 
   @override
-  String get id;
+  String get id => throw _privateConstructorUsedError;
   @override
-  String get title;
+  String get title => throw _privateConstructorUsedError;
   @override
-  bool get completed;
+  bool get completed => throw _privateConstructorUsedError;
   @override
-  double get position;
+  double get position => throw _privateConstructorUsedError;
   @override
-  DateTime get createdAt;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @override
-  DateTime get updatedAt;
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TodoCopyWith<_Todo> get copyWith;
+  _$TodoCopyWith<_Todo> get copyWith => throw _privateConstructorUsedError;
 }

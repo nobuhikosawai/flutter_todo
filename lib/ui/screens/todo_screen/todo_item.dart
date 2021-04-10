@@ -5,15 +5,15 @@ import '../../../data/entities/todo.dart';
 
 class TodoItem extends HookWidget {
   TodoItem(
-      {@required this.todo,
-      @required this.onChange,
-      @required this.onFocusChange,
-      @required this.onDismissed,
-      Key key})
+      {required this.todo,
+      required this.onChange,
+      required this.onFocusChange,
+      required this.onDismissed,
+      Key? key})
       : super(key: key);
 
   final Todo todo;
-  final ValueChanged<bool> onChange;
+  final ValueChanged<bool?> onChange;
   final Function onFocusChange;
   final Function onDismissed;
 
@@ -27,7 +27,7 @@ class TodoItem extends HookWidget {
           children: <Widget>[
             Text(
               ' Delete',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),

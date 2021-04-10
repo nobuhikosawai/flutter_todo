@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TodoInputForm extends StatefulWidget {
-  TodoInputForm({@required this.onSaved});
+  TodoInputForm({required this.onSaved});
 
   final Future<void> Function(String) onSaved;
 
@@ -15,11 +15,11 @@ class TodoInputFormState extends State<TodoInputForm> {
   TodoInputFormState(this._onSaved);
 
   final _todoTitleController = TextEditingController();
-  String _todoTitleErrorText;
+  String? _todoTitleErrorText;
   final _formKey = GlobalKey<FormState>();
   final Function _onSaved;
 
-  Future<void> _onSavedWithClear(String title) async {
+  Future<void> _onSavedWithClear(String? title) async {
     await _onSaved(title);
     _todoTitleController.clear();
   }
@@ -44,7 +44,7 @@ class TodoInputFormState extends State<TodoInputForm> {
                 textInputAction: TextInputAction.done,
                 controller: _todoTitleController,
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value == null || value.isEmpty) {
                     return 'Please input your todoTitle.';
                   }
                   return null;
@@ -65,9 +65,9 @@ class TodoInputFormState extends State<TodoInputForm> {
                       padding: MaterialStateProperty.all(EdgeInsets.all(4)),
                     ),
                     onPressed: () async {
-                      if (_formKey.currentState.validate()) {
+                      if (_formKey.currentState != null && _formKey.currentState!.validate()) {
                         try {
-                          _formKey.currentState.save();
+                          _formKey.currentState!.save();
                         } catch (error) {
                           await showDialog<void>(
                             context: context,
@@ -86,7 +86,7 @@ class TodoInputFormState extends State<TodoInputForm> {
                       }
                     },
                     child: Text('Save',
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).primaryColor)),
                   ))

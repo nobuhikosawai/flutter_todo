@@ -15,8 +15,8 @@ class SignInScreen extends StatefulHookWidget {
 class SignInScreenState extends State<SignInScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  String _emailErrorText;
-  String _passwordErrorText;
+  String? _emailErrorText;
+  String? _passwordErrorText;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -62,7 +62,7 @@ class SignInScreenState extends State<SignInScreen> {
                         textInputAction: TextInputAction.next,
                         controller: _emailController,
                         validator: (value) {
-                          if (value.isEmpty ||
+                          if (value == null || value.isEmpty ||
                               !EmailValidator.validate(value)) {
                             return 'Please input your correct email address.';
                           }
@@ -98,16 +98,16 @@ class SignInScreenState extends State<SignInScreen> {
                         textInputAction: TextInputAction.done,
                         controller: _passwordController,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value == null || value.isEmpty) {
                             return 'Please input your password';
                           }
                           return null;
                         },
                         onFieldSubmitted: (value) {
-                          _formKey.currentState.save();
+                          _formKey.currentState?.save();
                         },
                         onSaved: (value) async {
-                          if (_formKey.currentState.validate()) {
+                          if (_formKey.currentState != null && _formKey.currentState!.validate()) {
                             final email = _emailController.text;
                             final password = _passwordController.text;
                             try {
@@ -144,12 +144,12 @@ class SignInScreenState extends State<SignInScreen> {
                                   EdgeInsets.only(top: 16, bottom: 16)),
                             ),
                             onPressed: () async {
-                              _formKey.currentState.save();
+                              _formKey.currentState?.save();
                             },
                             child: Text('Log in',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyText1
+                                    .bodyText1!
                                     .copyWith(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white)),

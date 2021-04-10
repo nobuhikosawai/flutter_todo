@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 
 import '../entities/me.dart';
 import '../repositories/me_repository.dart';
 
 class MeRepositoryImpl implements MeRepository {
   @override
-  Future<Me> signIn({@required String email, @required String password}) async {
+  Future<Me> signIn({required String email, required String password}) async {
     final auth = FirebaseAuth.instance;
     await auth.useEmulator('http://localhost:9099');
 
@@ -14,11 +13,15 @@ class MeRepositoryImpl implements MeRepository {
         await auth.signInWithEmailAndPassword(email: email, password: password);
     final user = userCredential.user;
 
+    if (user == null) {
+      throw 'Failed to Sign in';
+    }
+
     return Me(id: user.uid, displayName: user.displayName);
   }
 
   @override
-  Stream<Me> getMe() async* {
+  Stream<Me?> getMe() async* {
     final auth = FirebaseAuth.instance;
     await auth.useEmulator('http://localhost:9099');
 

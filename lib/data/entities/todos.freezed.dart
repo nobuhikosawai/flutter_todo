@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'todos.dart';
 
@@ -9,14 +9,16 @@ part of 'todos.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$TodosTearOff {
   const _$TodosTearOff();
 
-// ignore: unused_element
   _Todos call(
-      {@required List<Todo> uncompletedItems,
-      @required List<Todo> completedItems}) {
+      {required List<Todo> uncompletedItems,
+      required List<Todo> completedItems}) {
     return _Todos(
       uncompletedItems: uncompletedItems,
       completedItems: completedItems,
@@ -25,16 +27,15 @@ class _$TodosTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $Todos = _$TodosTearOff();
 
 /// @nodoc
 mixin _$Todos {
-  List<Todo> get uncompletedItems;
-  List<Todo> get completedItems;
+  List<Todo> get uncompletedItems => throw _privateConstructorUsedError;
+  List<Todo> get completedItems => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TodosCopyWith<Todos> get copyWith;
+  $TodosCopyWith<Todos> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -54,16 +55,18 @@ class _$TodosCopyWithImpl<$Res> implements $TodosCopyWith<$Res> {
 
   @override
   $Res call({
-    Object uncompletedItems = freezed,
-    Object completedItems = freezed,
+    Object? uncompletedItems = freezed,
+    Object? completedItems = freezed,
   }) {
     return _then(_value.copyWith(
       uncompletedItems: uncompletedItems == freezed
           ? _value.uncompletedItems
-          : uncompletedItems as List<Todo>,
+          : uncompletedItems // ignore: cast_nullable_to_non_nullable
+              as List<Todo>,
       completedItems: completedItems == freezed
           ? _value.completedItems
-          : completedItems as List<Todo>,
+          : completedItems // ignore: cast_nullable_to_non_nullable
+              as List<Todo>,
     ));
   }
 }
@@ -87,27 +90,26 @@ class __$TodosCopyWithImpl<$Res> extends _$TodosCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object uncompletedItems = freezed,
-    Object completedItems = freezed,
+    Object? uncompletedItems = freezed,
+    Object? completedItems = freezed,
   }) {
     return _then(_Todos(
       uncompletedItems: uncompletedItems == freezed
           ? _value.uncompletedItems
-          : uncompletedItems as List<Todo>,
+          : uncompletedItems // ignore: cast_nullable_to_non_nullable
+              as List<Todo>,
       completedItems: completedItems == freezed
           ? _value.completedItems
-          : completedItems as List<Todo>,
+          : completedItems // ignore: cast_nullable_to_non_nullable
+              as List<Todo>,
     ));
   }
 }
 
 /// @nodoc
 class _$_Todos extends _Todos with DiagnosticableTreeMixin {
-  const _$_Todos(
-      {@required this.uncompletedItems, @required this.completedItems})
-      : assert(uncompletedItems != null),
-        assert(completedItems != null),
-        super._();
+  const _$_Todos({required this.uncompletedItems, required this.completedItems})
+      : super._();
 
   @override
   final List<Todo> uncompletedItems;
@@ -153,16 +155,16 @@ class _$_Todos extends _Todos with DiagnosticableTreeMixin {
 }
 
 abstract class _Todos extends Todos {
-  const _Todos._() : super._();
   const factory _Todos(
-      {@required List<Todo> uncompletedItems,
-      @required List<Todo> completedItems}) = _$_Todos;
+      {required List<Todo> uncompletedItems,
+      required List<Todo> completedItems}) = _$_Todos;
+  const _Todos._() : super._();
 
   @override
-  List<Todo> get uncompletedItems;
+  List<Todo> get uncompletedItems => throw _privateConstructorUsedError;
   @override
-  List<Todo> get completedItems;
+  List<Todo> get completedItems => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$TodosCopyWith<_Todos> get copyWith;
+  _$TodosCopyWith<_Todos> get copyWith => throw _privateConstructorUsedError;
 }

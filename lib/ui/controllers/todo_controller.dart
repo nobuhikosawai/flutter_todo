@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_example/data/providers/todo_repository_provider.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -10,33 +9,33 @@ final todoProvider = StateNotifierProvider.family<TodoController, AsyncValue<Tod
     (ref, meId) => TodoController(ref, meId: meId));
 
 class TodoController extends StateNotifier<AsyncValue<Todos>> {
-  TodoController(this._reference, {@required this.meId})
+  TodoController(this._reference, {required this.meId})
       : super(AsyncValue.loading()) {
     _listTodos();
   }
 
-  TodoRepository _repository;
+  late TodoRepository _repository;
 
   final String meId;
 
   final ProviderReference _reference;
 
   void _listTodos() {
-    _repository ??= _reference.read(todoRepositoryProvider);
+    _repository = _reference.read(todoRepositoryProvider);
     _repository.listTodos(meId: meId).listen((todos) {
       state = AsyncValue.data(todos);
     });
   }
 
   Future<void> createTodo(String title) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final position = state.data.value.newPosition();
+    _repository = _reference.read(todoRepositoryProvider);
+    final position = state.data!.value.newPosition();
     await _repository.createTodo(meId: meId, title: title, position: position);
   }
 
   Future<void> updateOrder(String id, int newIndex) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.reorder(id, newIndex);
+    _repository = _reference.read(todoRepositoryProvider);
+    final newState = state.data!.value.reorder(id, newIndex);
     state = AsyncValue.data(newState);
     final position =
         newState.uncompletedItems.firstWhere((item) => item.id == id).position;
@@ -44,8 +43,8 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
   }
 
   Future<void> completeTodo(String id) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.complete(id);
+    _repository = _reference.read(todoRepositoryProvider);
+    final newState = state.data!.value.complete(id);
     state = AsyncValue.data(newState);
     final completedTodo =
         newState.completedItems.firstWhere((item) => item.id == id);
@@ -56,8 +55,8 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
   }
 
   Future<void> uncompleteTodo(String id) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.uncomplete(id);
+    _repository = _reference.read(todoRepositoryProvider);
+    final newState = state.data!.value.uncomplete(id);
     state = AsyncValue.data(newState);
     final uncompletedTodo =
         newState.uncompletedItems.firstWhere((item) => item.id == id);
@@ -67,9 +66,9 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
         position: uncompletedTodo.position);
   }
 
-  Future<void> update({String id, String title}) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.update(id: id, title: title);
+  Future<void> update({required String id, required String title}) async {
+    _repository = _reference.read(todoRepositoryProvider);
+    final newState = state.data!.value.update(id: id, title: title);
     state = AsyncValue.data(newState);
     final newTitle =
         newState.uncompletedItems.firstWhere((item) => item.id == id).title;
@@ -77,8 +76,8 @@ class TodoController extends StateNotifier<AsyncValue<Todos>> {
   }
 
   Future<void> delete(String id) async {
-    _repository ??= _reference.read(todoRepositoryProvider);
-    final newState = state.data.value.delete(id);
+    _repository = _reference.read(todoRepositoryProvider);
+    final newState = state.data!.value.delete(id);
     state = AsyncValue.data(newState);
     await _repository.deleteTodo(id: id);
   }

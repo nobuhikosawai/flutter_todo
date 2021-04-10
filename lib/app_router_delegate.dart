@@ -11,11 +11,11 @@ class AppRouterDelegate extends RouterDelegate<AppRouterConfiguration>
     with
         ChangeNotifier,
         PopNavigatorRouterDelegateMixin<AppRouterConfiguration> {
-  AppRouterDelegate({@required this.me});
+  AppRouterDelegate({required this.me});
 
-  AsyncValue<Me> me;
+  AsyncValue<Me?> me;
 
-  AppRouterConfiguration _configuration;
+  late AppRouterConfiguration _configuration;
 
   AppRouterConfiguration get configuration => _configuration;
 

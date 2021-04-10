@@ -14,10 +14,10 @@ class TodoRepositoryImpl extends TodoRepository {
     _firestore.settings = Settings(host: host, sslEnabled: false);
   }
 
-  FirebaseFirestore _firestore;
+  late FirebaseFirestore _firestore;
 
   @override
-  Stream<Todos> listTodos({@required String meId}) {
+  Stream<Todos> listTodos({required String meId}) {
     return _firestore
         .collection('todos')
         .where('auth_id', isEqualTo: meId)
@@ -56,7 +56,10 @@ class TodoRepositoryImpl extends TodoRepository {
   }
 
   @override
-  Future<Todo> createTodo({String meId, String title, double position}) async {
+  Future<Todo> createTodo(
+      {required String meId,
+      required String title,
+      required double position}) async {
     final ref = await _firestore.collection('todos').add(<String, dynamic>{
       'auth_id': meId,
       'title': title,
@@ -78,10 +81,10 @@ class TodoRepositoryImpl extends TodoRepository {
 
   @override
   Future<void> updateTodo(
-      {@required String id,
-      String title,
-      bool completed,
-      double position}) async {
+      {required String id,
+      String? title,
+      bool? completed,
+      double? position}) async {
     final queryMap = <String, dynamic>{};
 
     if (title == null && completed == null && position == null) {
@@ -103,7 +106,7 @@ class TodoRepositoryImpl extends TodoRepository {
   }
 
   @override
-  Future<void> deleteTodo({String id}) async {
+  Future<void> deleteTodo({required String id}) async {
     await _firestore.collection('todos').doc(id).delete();
   }
 }

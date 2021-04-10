@@ -6,7 +6,7 @@ part 'me.freezed.dart';
 @freezed
 abstract class Me with _$Me {
   factory Me({
-    @required String id,
-    @Default('') String displayName,
+    required String id,
+    @Default('') String? displayName,
   }) = _Me;
 }

@@ -10,8 +10,8 @@ abstract class Todos implements _$Todos {
   const Todos._();
 
   const factory Todos({
-    @required List<Todo> uncompletedItems,
-    @required List<Todo> completedItems,
+    required List<Todo> uncompletedItems,
+    required List<Todo> completedItems,
   }) = _Todos;
 
   double newPosition() {
@@ -62,7 +62,7 @@ abstract class Todos implements _$Todos {
         completedItems: newCompletedItems);
   }
 
-  Todos update({String id, String title}) {
+  Todos update({required String id, required String title}) {
     final newItems = uncompletedItems.map((item) {
       if (item.id == id) {
         return item.copyWith(title: title);

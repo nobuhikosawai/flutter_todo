@@ -5,14 +5,14 @@ import '../../../data/entities/todo.dart';
 
 class CompletedTodoItem extends HookWidget {
   CompletedTodoItem(
-      {@required this.todo,
-      @required this.onChange,
-      @required this.onDismissed,
-      Key key})
+      {required this.todo,
+      required this.onChange,
+      required this.onDismissed,
+      Key? key})
       : super(key: key);
 
   final Todo todo;
-  final ValueChanged<bool> onChange;
+  final ValueChanged<bool?> onChange;
   final Function onDismissed;
 
   Widget _slideLeftBackground(BuildContext context) {
@@ -25,7 +25,7 @@ class CompletedTodoItem extends HookWidget {
           children: <Widget>[
             Text(
               ' Delete',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
@@ -67,7 +67,7 @@ class CompletedTodoItem extends HookWidget {
                   Expanded(
                       child: Text(
                     todo.title,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
                         decoration: TextDecoration.lineThrough,
                         color: Colors.grey),
                   ))

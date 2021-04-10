@@ -16,7 +16,9 @@ class TodoScreen extends HookWidget {
     final me = useProvider(meProvider);
     final meId = me.data?.value?.id;
 
-    if (meId == null) Container();
+    if (meId == null) {
+      return Container();
+    }
 
     final todos = useProvider(todoProvider(meId));
     final todoController = useProvider(todoProvider(meId).notifier);
