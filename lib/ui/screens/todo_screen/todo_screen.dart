@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_example/ui/screens/todo_screen/todo_item.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -9,6 +6,7 @@ import '../../controllers/me_controller.dart';
 import '../../controllers/todo_controller.dart';
 import 'completed_todo_item.dart';
 import 'todo_input_form.dart';
+import 'todo_item.dart';
 
 class TodoScreen extends HookWidget {
   @override

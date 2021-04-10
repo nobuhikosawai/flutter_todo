@@ -1,4 +1,5 @@
-import 'package:flutter_example/data/datastores/me_repository_impl.dart';
 import 'package:riverpod/riverpod.dart';
+
+import '../datastores/me_repository_impl.dart';
 
 final meRepositoryProvider = Provider((ref) => MeRepositoryImpl());
