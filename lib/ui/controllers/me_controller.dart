@@ -6,7 +6,7 @@ import 'package:state_notifier/state_notifier.dart';
 
 import '../../data/entities/me.dart';
 
-final meProvider = StateNotifierProvider((ref) => MeController(ref));
+final meProvider = StateNotifierProvider<MeController, AsyncValue<Me>>((ref) => MeController(ref));
 
 class MeController extends StateNotifier<AsyncValue<Me>> {
   MeController(this._reference) : super(AsyncValue.loading()) {

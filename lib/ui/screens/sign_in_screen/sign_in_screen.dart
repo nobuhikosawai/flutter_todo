@@ -21,7 +21,7 @@ class SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final meController = useProvider(meProvider);
+    final meController = useProvider(meProvider.notifier);
     final showPassword = useState<bool>(false);
 
     return Scaffold(

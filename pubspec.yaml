@@ -23,27 +23,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks:
-  state_notifier:
-  riverpod:
-  hooks_riverpod:
-  freezed_annotation: ^0.12.0
-  email_validator:
+  flutter_hooks: ^0.16.0
+  state_notifier: ^0.7.0
+  riverpod: ^0.14.0+1
+  hooks_riverpod: ^0.14.0+1
+  freezed_annotation: ^0.14.1
+  email_validator: ^2.0.1
   firebase_core: ^1.0.3
-  firebase_auth: ^1.0.2
+  firebase_auth: ^1.0.3
   cloud_firestore: ^1.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.9.2
+  pedantic: ^1.11.0
   build_runner:
-  freezed: ^0.12.7
+  freezed: ^0.14.1+2
   flutter_launcher_icons: ^0.9.0
   flutter_native_splash: ^1.1.7+1
 

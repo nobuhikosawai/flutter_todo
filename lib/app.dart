@@ -9,7 +9,7 @@ import 'ui/controllers/me_controller.dart';
 class App extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final me = useProvider(meProvider.state);
+    final me = useProvider(meProvider);
 
     final delegate = AppRouterDelegate(me: me);
     final routeInformationParser = AppRouteInformationParser();

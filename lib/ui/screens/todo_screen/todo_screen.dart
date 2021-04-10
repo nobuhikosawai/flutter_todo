@@ -13,13 +13,13 @@ import 'todo_input_form.dart';
 class TodoScreen extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final me = useProvider(meProvider.state);
+    final me = useProvider(meProvider);
     final meId = me.data?.value?.id;
 
     if (meId == null) Container();
 
-    final todos = useProvider(todoProvider(meId).state);
-    final todoController = useProvider(todoProvider(meId));
+    final todos = useProvider(todoProvider(meId));
+    final todoController = useProvider(todoProvider(meId).notifier);
 
     final displayCompleted = useState<bool>(false);
 

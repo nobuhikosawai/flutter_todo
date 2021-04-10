@@ -6,7 +6,7 @@ import 'package:state_notifier/state_notifier.dart';
 import '../../data/entities/todos.dart';
 import '../../data/repositories/todo_repository.dart';
 
-final todoProvider = StateNotifierProvider.family<TodoController, String>(
+final todoProvider = StateNotifierProvider.family<TodoController, AsyncValue<Todos>, String>(
     (ref, meId) => TodoController(ref, meId: meId));
 
 class TodoController extends StateNotifier<AsyncValue<Todos>> {
